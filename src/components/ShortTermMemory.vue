@@ -24,7 +24,7 @@ export default {
   methods: {
     sheetFinish(sheet) {
       this.filled = true;
-      this.sheet = sheet;
+      this.sheet = sheet.map((s, idx) => ({ i: idx, ...s }));
     },
   },
 };

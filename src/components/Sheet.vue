@@ -42,7 +42,12 @@ export default {
       } else {
         this.$emit(
           'sheetfinish',
-          checkedCards.map((c) => ({ idx: c.idx, content: c.content }))
+          checkedCards.map((c) => ({
+            idx: c.idx,
+            content: c.content,
+            src: c.src,
+            path: c.path,
+          }))
         );
       }
     },
