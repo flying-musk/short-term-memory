@@ -1,19 +1,31 @@
 <template>
   <div class="s-outer">
     <h1>Short Term Memory</h1>
-    <Form />
-    <Test />
+    <Sheet v-if="!filled" @sheetfinish="sheetFinish" />
+    <Test v-if="filled" :sheet="sheet" />
   </div>
 </template>
 
 <script>
-import Form from './Form.vue';
+import Sheet from './Sheet.vue';
 import Test from './Test.vue';
 export default {
   name: 'short-term-memory',
   components: {
-    Form,
+    Sheet,
     Test,
+  },
+  data() {
+    return {
+      filled: false,
+      sheet: [],
+    };
+  },
+  methods: {
+    sheetFinish(sheet) {
+      this.filled = true;
+      this.sheet = sheet;
+    },
   },
 };
 </script>
