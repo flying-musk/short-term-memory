@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <short-term-memory />
+    <ShortTermMemory />
   </div>
 </template>
 
