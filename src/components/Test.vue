@@ -8,6 +8,9 @@
       <button class="t-button" v-if="showLeft" @click="leftClick">
         &lt;&lt;
       </button>
+      <button class="t-button" v-if="!showLeft" disabled @click="leftClick">
+        &lt;&lt;
+      </button>
       <img
         v-if="!cardOpen"
         class="t-image"
@@ -19,6 +22,9 @@
         {{ sheet[currentIdx].content }}
       </div>
       <button class="t-button" v-if="showRight" @click="rightClick">
+        &gt;&gt;
+      </button>
+      <button class="t-button" v-if="!showRight" disabled @click="rightClick">
         &gt;&gt;
       </button>
     </div>
