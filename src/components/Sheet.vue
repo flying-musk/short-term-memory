@@ -7,8 +7,13 @@
     <div v-for="s in sheet" :key="s.idx" class="s-card">
       <div>
         <input type="checkbox" :data-idx="s.idx" v-model="s.checked" />
-        <label>Content&nbsp;</label>
-        <input type="text" v-model="s.content" />
+        <input
+          type="text"
+          :data-idx="s.idx"
+          v-model="s.content"
+          @focus="contentFocus"
+          @blur="contentBlur"
+        />
       </div>
       <img class="card-image" :src="s.src" :alt="s.path" />
     </div>
@@ -35,6 +40,16 @@ export default {
     };
   },
   methods: {
+    contentFocus(e) {
+      let idx = parseInt(e.currentTarget.dataset.idx);
+      this.sheet[idx].checked = true;
+    },
+    contentBlur(e) {
+      let idx = parseInt(e.currentTarget.dataset.idx);
+      if (this.sheet[idx].content === '') {
+        this.sheet[idx].checked = false;
+      }
+    },
     start() {
       let checkedCards = this.sheet.filter((s) => s.checked);
       if (checkedCards.filter((c) => c.content === '').length > 0) {
