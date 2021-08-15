@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       error: false,
-      sheet: [...Array(26).keys()].map((idx) => ({
+      sheet: [...Array(41).keys()].map((idx) => ({
         idx: idx,
         path: `../assets/images/${idx + 1}.png`,
         src: require(`../assets/images/${idx + 1}.png`),

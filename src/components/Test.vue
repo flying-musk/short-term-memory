@@ -74,18 +74,20 @@ export default {
 .t-main {
   flex-grow: 1;
   display: flex;
+  justify-content: space-around;
   align-items: center;
   gap: 16px;
 }
 .t-image {
   cursor: pointer;
   flex-grow: 1;
-  width: 100%;
+  max-width: 64%;
   max-height: 64vh;
 }
 .t-content {
   cursor: pointer;
   flex-grow: 1;
+  max-width: 64%;
   align-self: stretch;
   font-size: 64px;
   text-align: center;
