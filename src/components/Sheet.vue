@@ -1,9 +1,9 @@
 <template>
   <div class="s-grid">
     <div v-if="error" class="s-error">
-      Make sure to fill in content for all checked cards!
+      Make sure to fill in at least one card!
     </div>
-    <button @click="start">START</button>
+    <button class="s-button" @click="start">START</button>
     <div v-for="s in sheet" :key="s.idx" class="s-card">
       <div>
         <input type="checkbox" :data-idx="s.idx" v-model="s.checked" />
@@ -17,9 +17,9 @@
       </div>
       <img class="card-image" :src="s.src" :alt="s.path" />
     </div>
-    <button @click="start">START</button>
+    <button class="s-button" @click="start">START</button>
     <div v-if="error" class="s-error">
-      Make sure to fill in content for all checked cards!
+      Make sure to fill in at least one card!
     </div>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
     },
     start() {
       let checkedCards = this.sheet.filter((s) => s.checked);
-      if (checkedCards.filter((c) => c.content === '').length > 0) {
+      if (checkedCards.length === 0) {
         this.error = true;
       } else {
         this.$emit(
@@ -85,8 +85,17 @@ export default {
 .card-image {
   width: 100%;
 }
+.s-button {
+  padding: 12px;
+  font-size: 24px;
+  justify-self: center;
+  align-self: center;
+}
 .s-error {
+  justify-self: center;
+  align-self: center;
   border: solid 2px #cc0000;
+  padding: 12px;
   color: #cc0000;
   font-size: 20px;
   text-align: center;
