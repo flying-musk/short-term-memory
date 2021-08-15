@@ -1,21 +1,27 @@
 <template>
   <div class="t-outer">
-    <button class="t-button" v-if="showLeft" @click="leftClick">
-      &lt;&lt;
-    </button>
-    <img
-      v-if="!cardOpen"
-      class="t-image"
-      :src="sheet[currentIdx].src"
-      :alt="sheet[currentIdx].path"
-      @click="toggleClick"
-    />
-    <div v-if="cardOpen" class="t-content" @click="toggleClick">
-      {{ sheet[currentIdx].content }}
+    <div class="t-top">
+      <button class="t-button" @click="endClick">End</button>
+      <h2>Click on image to show number!</h2>
     </div>
-    <button class="t-button" v-if="showRight" @click="rightClick">
-      &gt;&gt;
-    </button>
+    <div class="t-main">
+      <button class="t-button" v-if="showLeft" @click="leftClick">
+        &lt;&lt;
+      </button>
+      <img
+        v-if="!cardOpen"
+        class="t-image"
+        :src="sheet[currentIdx].src"
+        :alt="sheet[currentIdx].path"
+        @click="toggleClick"
+      />
+      <div v-if="cardOpen" class="t-content" @click="toggleClick">
+        {{ sheet[currentIdx].content }}
+      </div>
+      <button class="t-button" v-if="showRight" @click="rightClick">
+        &gt;&gt;
+      </button>
+    </div>
   </div>
 </template>
 
@@ -35,6 +41,9 @@ export default {
     },
   },
   methods: {
+    endClick() {
+      this.$emit('end');
+    },
     leftClick() {
       this.cardOpen = false;
       this.currentIdx--;
@@ -52,6 +61,17 @@ export default {
 
 <style scoped lang="scss">
 .t-outer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.t-top {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.t-main {
   flex-grow: 1;
   display: flex;
   align-items: center;
