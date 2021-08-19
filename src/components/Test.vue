@@ -62,6 +62,23 @@ export default {
       this.cardOpen = !this.cardOpen;
     },
   },
+  created() {
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'ArrowLeft') {
+        if (this.showLeft) {
+          this.leftClick();
+        }
+      }
+      if (e.code === 'ArrowRight') {
+        if (this.showRight) {
+          this.rightClick();
+        }
+      }
+      if (e.code === 'Enter') {
+        this.toggleClick();
+      }
+    });
+  },
 };
 </script>
 
