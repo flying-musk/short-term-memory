@@ -60,14 +60,17 @@ export default {
         this.randomError = true;
       } else {
         this.randomError = false;
+        let randomArray = [...Array(100).keys()].sort(
+          () => Math.random() - 0.5
+        );
         let randomCards = JSON.parse(JSON.stringify(this.sheet))
           .sort(() => Math.random() - 0.5)
           .slice(0, this.randomAmount);
         this.$emit(
           'sheetfinish',
-          randomCards.map((c) => ({
+          randomCards.map((c, i) => ({
             idx: c.idx,
-            content: Math.trunc(Math.random() * 100),
+            content: randomArray[i],
             src: c.src,
             path: c.path,
           }))
