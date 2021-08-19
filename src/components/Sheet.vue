@@ -1,5 +1,17 @@
 <template>
   <div class="s-grid">
+    <div class="s-random">
+      <h3>Select randomly by computer</h3>
+      <p>Cards amount:</p>
+      <select v-model="randomAmount">
+        <option disabled value="">Cards amount</option>
+        <option v-for="o in options" :key="o" :value="o + 1">
+          {{ o + 1 }}
+        </option>
+      </select>
+      <button @click="randomClick">START</button>
+      <p v-if="randomError" class="random-error">Please select cards amount!</p>
+    </div>
     <div v-if="error" class="s-error">
       Make sure to fill in at least one card!
     </div>
@@ -29,6 +41,9 @@ export default {
   name: 'sheet',
   data() {
     return {
+      options: [...Array(41).keys()],
+      randomAmount: 0,
+      randomError: false,
       error: false,
       sheet: [...Array(41).keys()].map((idx) => ({
         idx: idx,
@@ -40,6 +55,25 @@ export default {
     };
   },
   methods: {
+    randomClick() {
+      if (this.randomAmount === 0) {
+        this.randomError = true;
+      } else {
+        this.randomError = false;
+        let randomCards = JSON.parse(JSON.stringify(this.sheet))
+          .sort(() => Math.random() - 0.5)
+          .slice(0, this.randomAmount);
+        this.$emit(
+          'sheetfinish',
+          randomCards.map((c) => ({
+            idx: c.idx,
+            content: Math.trunc(Math.random() * 100),
+            src: c.src,
+            path: c.path,
+          }))
+        );
+      }
+    },
     contentFocus(e) {
       let idx = parseInt(e.currentTarget.dataset.idx);
       this.sheet[idx].checked = true;
@@ -101,6 +135,13 @@ export default {
   text-align: center;
   display: flex;
   align-items: center;
+}
+.s-random {
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+.random-error {
+  color: #cc0000;
 }
 @media (max-width: 1000px) {
   .s-grid {
